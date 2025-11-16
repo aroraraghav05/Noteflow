@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NoteFlow — Interactive Notes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  
+  <header class="nf-header">
+    <div class="nf-title-box">
+      <h1 class="nf-title">NoteFlow</h1>
+      <div class="nf-underline-wrap">
+        <div class="nf-underline"></div>
+        <div class="nf-pen-dot" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="nf-actions">
+      <button id="addNewBtn" class="nf-btn">+ Add New</button>
+      <label for="openFile" class="nf-btn ghost">Open Existing</label>
+      <input id="openFile" type="file" accept="application/json" style="display:none;">
+    </div>
+  </header>
+
+  <div class="topbar-spacer"></div>
+
+  <div class="wrap">
+    
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3 style="margin:0">Saved Notes</h3>
+          <button id="newBtn" class="btn small">+ New</button>
+        </div>
+        <div class="small-muted">Click a note to open • Drag to reorder</div>
+      </div>
+
+      <div style="padding:10px;">
+        <input id="search" class="search" type="search" placeholder="Search..." />
+      </div>
+
+      <div id="notesList" class="notes-list" aria-live="polite"></div>
+
+      <div class="sidebar-foot">
+        <div class="small-muted">Tip: Use the draw area and Save Drawing to attach images</div>
+      </div>
+    </aside>
+
+   
+    <main class="editor-area">
+      <div class="editor-top">
+        <input id="noteTitle" placeholder="Note title..." />
+        <div class="editor-controls">
+          <button id="pinBtn" class="icon-btn" title="Pin/Unpin">📌</button>
+          <button id="previewToggle" class="icon-btn" title="Toggle preview">👁️</button>
+          <button id="exportBtn" class="icon-btn" title="Export JSON">⬇️</button>
+        </div>
+      </div>
+
+    
+      <div class="editor-body">
+      
+        <section class="left">
+          <textarea id="noteBody" placeholder="Write here... (supports basic Markdown)"></textarea>
+
+          <div class="meta-row">
+            <div class="tags-area">
+              <input id="tagInput" placeholder="Add tag and press Enter (e.g. study)" />
+              <div id="tagChips" class="chips"></div>
+            </div>
+
+            <div class="right-meta">
+              <div id="autosave" class="small-muted">Saved</div>
+              <div id="charCount" class="small-muted">0 chars</div>
+            </div>
+          </div>
+        </section>
+
+  
+        <section class="right-draw">
+          <div class="draw-tools">
+            <label class="small-muted">Draw (mouse / touch)</label>
+            <div style="margin-left:auto;display:flex;gap:8px">
+              <button id="drawClear" class="small ghost">Clear</button>
+              <button id="drawSave" class="small">Save Drawing</button>
+            </div>
+          </div>
+          <div class="draw-wrap">
+            <canvas id="drawCanvas"></canvas>
+          </div>
+
+          <div class="draw-preview" id="drawPreview">
+           
+          </div>
+        </section>
+
+      </div>
+
+      <div class="editor-bottom">
+        <div class="left">
+          <button id="saveBtn" class="btn ghost">Save</button>
+          <button id="deleteBtn" class="btn ghost">Delete</button>
+        </div>
+        <div class="right small-muted" id="lastEdited">No note selected</div>
+      </div>
+    </main>
+  </div>
+
+
+  <footer class="nf-footer">
+    <div>designed with <span class="heart">❤</span> by Raghav</div>
+  </footer>
+
+
+  <template id="noteItemTpl">
+    <div class="note-row" draggable="true" data-id="">
+      <div class="left-col" style="display:flex;gap:10px;align-items:center">
+        <div class="thumb-wrap" style="width:56px;height:46px;flex:0 0 56px;border-radius:6px;background:#fafafa;border:1px solid rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;overflow:hidden">
+        
+        </div>
+        <div>
+          <div class="note-title"></div>
+          <div class="note-snippet small-muted"></div>
+        </div>
+      </div>
+      <div class="right-col">
+        <div class="note-tags small-muted"></div>
+        <button class="trash icon-btn" title="Delete note">🗑️</button>
+      </div>
+    </div>
+  </template>
+
+<script src="app.js"></script>
+</body>
+</html>
